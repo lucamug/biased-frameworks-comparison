@@ -17,7 +17,7 @@ type alias Product =
 
 type Msg
     = GotProducts (Result Error (List Product))
-    | ChangeQuanity Int String
+    | ChangeQuantity Int String
 
 
 update msg products =
@@ -28,7 +28,7 @@ update msg products =
         GotProducts (Err _) ->
             ( products, Cmd.none )
 
-        ChangeQuanity productId newQuantity ->
+        ChangeQuantity productId newQuantity ->
             let
                 newProducts =
                     List.map
@@ -60,7 +60,7 @@ view products =
                     li []
                         [ input
                             [ type_ "number"
-                            , onInput <| ChangeQuanity product.id
+                            , onInput <| ChangeQuantity product.id
                             , value <| String.fromInt product.quantity
                             ]
                             []
@@ -73,7 +73,7 @@ view products =
                                     else
                                         " "
                                    )
-                        , button [ onClick <| ChangeQuanity product.id (String.fromInt (product.quantity + 1)) ] [ text "Add" ]
+                        , button [ onClick <| ChangeQuantity product.id (String.fromInt (product.quantity + 1)) ] [ text "Add" ]
                         ]
                 )
                 products

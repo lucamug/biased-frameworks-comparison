@@ -5091,7 +5091,7 @@ var author$project$Main$update = F2(
 			return _Utils_Tuple2(newProducts, elm$core$Platform$Cmd$none);
 		}
 	});
-var author$project$Main$ChangeQuanity = F2(
+var author$project$Main$ChangeQuantity = F2(
 	function (a, b) {
 		return {$: 1, a: a, b: b};
 	});
@@ -5212,7 +5212,7 @@ var author$project$Main$view = function (products) {
 										[
 											elm$html$Html$Attributes$type_('number'),
 											elm$html$Html$Events$onInput(
-											author$project$Main$ChangeQuanity(product.L)),
+											author$project$Main$ChangeQuantity(product.L)),
 											elm$html$Html$Attributes$value(
 											elm$core$String$fromInt(product.u))
 										]),
@@ -5225,7 +5225,7 @@ var author$project$Main$view = function (products) {
 										[
 											elm$html$Html$Events$onClick(
 											A2(
-												author$project$Main$ChangeQuanity,
+												author$project$Main$ChangeQuantity,
 												product.L,
 												elm$core$String$fromInt(product.u + 1)))
 										]),

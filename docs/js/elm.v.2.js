@@ -784,11 +784,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.T.F === region.Y.F)
+	if (region.S.F === region.Y.F)
 	{
-		return 'on line ' + region.T.F;
+		return 'on line ' + region.S.F;
 	}
-	return 'on lines ' + region.T.F + ' through ' + region.Y.F;
+	return 'on lines ' + region.S.F + ' through ' + region.Y.F;
 }
 
 
@@ -2660,8 +2660,8 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
 		o: func(record.o),
-		U: record.U,
-		R: record.R
+		T: record.T,
+		Q: record.Q
 	}
 });
 
@@ -2930,10 +2930,10 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 
 		var value = result.a;
 		var message = !tag ? value : tag < 3 ? value.a : value.o;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.U;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.T;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.R) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.Q) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -4189,8 +4189,8 @@ function _Browser_getViewport()
 	return {
 		aq: _Browser_getScene(),
 		au: {
-			N: _Browser_window.pageXOffset,
-			O: _Browser_window.pageYOffset,
+			M: _Browser_window.pageXOffset,
+			N: _Browser_window.pageYOffset,
 			D: _Browser_doc.documentElement.clientWidth,
 			y: _Browser_doc.documentElement.clientHeight
 		}
@@ -4231,8 +4231,8 @@ function _Browser_getViewportOf(id)
 				y: node.scrollHeight
 			},
 			au: {
-				N: node.scrollLeft,
-				O: node.scrollTop,
+				M: node.scrollLeft,
+				N: node.scrollTop,
 				D: node.clientWidth,
 				y: node.clientHeight
 			}
@@ -4266,14 +4266,14 @@ function _Browser_getElement(id)
 		return {
 			aq: _Browser_getScene(),
 			au: {
-				N: x,
-				O: y,
+				M: x,
+				N: y,
 				D: _Browser_doc.documentElement.clientWidth,
 				y: _Browser_doc.documentElement.clientHeight
 			},
 			az: {
-				N: x + rect.left,
-				O: y + rect.top,
+				M: x + rect.left,
+				N: y + rect.top,
 				D: rect.width,
 				y: rect.height
 			}
@@ -4330,9 +4330,9 @@ var _Http_toTask = F3(function(router, toTask, request)
 		elm$core$Maybe$isJust(request.j) && _Http_track(router, xhr, request.j.a);
 
 		try {
-			xhr.open(request.h, request.M, true);
+			xhr.open(request.h, request.U, true);
 		} catch (e) {
-			return done(elm$http$Http$BadUrl_(request.M));
+			return done(elm$http$Http$BadUrl_(request.U));
 		}
 
 		_Http_configureRequest(xhr, request);
@@ -4376,7 +4376,7 @@ function _Http_toResponse(toBody, xhr)
 function _Http_toMetadata(xhr)
 {
 	return {
-		M: xhr.responseURL,
+		U: xhr.responseURL,
 		ar: xhr.status,
 		aM: xhr.statusText,
 		e: _Http_parseHeaders(xhr.getAllResponseHeaders())
@@ -4475,14 +4475,14 @@ function _Http_track(router, xhr, tracker)
 		if (xhr.c) { return; }
 		_Scheduler_rawSpawn(A2(elm$core$Platform$sendToSelf, router, _Utils_Tuple2(tracker, elm$http$Http$Sending({
 			aL: event.loaded,
-			S: event.total
+			R: event.total
 		}))));
 	});
 	xhr.addEventListener('progress', function(event) {
 		if (xhr.c) { return; }
 		_Scheduler_rawSpawn(A2(elm$core$Platform$sendToSelf, router, _Utils_Tuple2(tracker, elm$http$Http$Receiving({
 			aJ: event.loaded,
-			S: event.lengthComputable ? elm$core$Maybe$Just(event.total) : elm$core$Maybe$Nothing
+			R: event.lengthComputable ? elm$core$Maybe$Just(event.total) : elm$core$Maybe$Nothing
 		}))));
 	});
 }var author$project$Main$GotProducts = function (a) {
@@ -5074,9 +5074,9 @@ var author$project$Main$update = F2(
 	function (msg, model) {
 		if (!msg.$) {
 			if (!msg.a.$) {
-				var products = msg.a.a;
+				var newProducts = msg.a.a;
 				return _Utils_Tuple2(
-					author$project$Main$Success(products),
+					author$project$Main$Success(newProducts),
 					elm$core$Platform$Cmd$none);
 			} else {
 				var error = msg.a.a;
@@ -5115,7 +5115,7 @@ var author$project$Main$update = F2(
 			}
 		}
 	});
-var author$project$Main$ChangeQuanity = F2(
+var author$project$Main$ChangeQuantity = F2(
 	function (a, b) {
 		return {$: 1, a: a, b: b};
 	});
@@ -5237,9 +5237,9 @@ var author$project$Main$view = function (model) {
 											elm$html$Html$input,
 											_List_fromArray(
 												[
-													elm$html$Html$Attributes$type_('number'),
+													elm$html$Html$Attributes$type_('tel'),
 													elm$html$Html$Events$onInput(
-													author$project$Main$ChangeQuanity(product.L)),
+													author$project$Main$ChangeQuantity(product.L)),
 													elm$html$Html$Attributes$value(
 													elm$core$String$fromInt(product.q))
 												]),
@@ -5252,7 +5252,7 @@ var author$project$Main$view = function (model) {
 												[
 													elm$html$Html$Events$onClick(
 													A2(
-														author$project$Main$ChangeQuanity,
+														author$project$Main$ChangeQuantity,
 														product.L,
 														elm$core$String$fromInt(product.q + 1)))
 												]),
@@ -6289,7 +6289,7 @@ var elm$http$Http$cmdMap = F2(
 					h: r.h,
 					i: r.i,
 					j: r.j,
-					M: r.M
+					U: r.U
 				});
 		}
 	});
@@ -6312,11 +6312,11 @@ var elm$http$Http$subscription = _Platform_leaf('Http');
 var elm$http$Http$request = function (r) {
 	return elm$http$Http$command(
 		elm$http$Http$Request(
-			{w: false, ax: r.ax, aA: r.aA, e: r.e, h: r.h, i: r.i, j: r.j, M: r.M}));
+			{w: false, ax: r.ax, aA: r.aA, e: r.e, h: r.h, i: r.i, j: r.j, U: r.U}));
 };
 var elm$http$Http$get = function (r) {
 	return elm$http$Http$request(
-		{ax: elm$http$Http$emptyBody, aA: r.aA, e: _List_Nil, h: 'GET', i: elm$core$Maybe$Nothing, j: elm$core$Maybe$Nothing, M: r.M});
+		{ax: elm$http$Http$emptyBody, aA: r.aA, e: _List_Nil, h: 'GET', i: elm$core$Maybe$Nothing, j: elm$core$Maybe$Nothing, U: r.U});
 };
 var elm$json$Json$Decode$andThen = _Json_andThen;
 var author$project$Main$main = elm$browser$Browser$element(
@@ -6327,7 +6327,7 @@ var author$project$Main$main = elm$browser$Browser$element(
 				elm$http$Http$get(
 					{
 						aA: A2(elm$http$Http$expectJson, author$project$Main$GotProducts, author$project$Main$productsDecoder),
-						M: flags.M
+						U: flags.U
 					}));
 		},
 		aN: function (_n0) {
@@ -6341,6 +6341,6 @@ _Platform_export({'Main':{'init':author$project$Main$main(
 		elm$json$Json$Decode$andThen,
 		function (url) {
 			return elm$json$Json$Decode$succeed(
-				{M: url});
+				{U: url});
 		},
 		A2(elm$json$Json$Decode$field, 'url', elm$json$Json$Decode$string)))(0)}});}(this));

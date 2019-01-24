@@ -17,7 +17,7 @@ type alias Product =
 
 type Msg
     = GotProducts (Result Error (List Product))
-    | ChangeQuanity Int String
+    | ChangeQuantity Int String
 
 
 type Model
@@ -35,7 +35,7 @@ update msg model =
         GotProducts (Err error) ->
             ( Error error, Cmd.none )
 
-        ChangeQuanity productId newQuantity ->
+        ChangeQuantity productId newQuantity ->
             case model of
                 Success products ->
                     let
@@ -77,8 +77,7 @@ view model =
                         (\product ->
                             li []
                                 [ input
-                                    [ type_ "number"
-                                    , onInput <| ChangeQuanity product.id
+                                    [ onInput <| ChangeQuantity product.id
                                     , value <| String.fromInt product.quantity
                                     ]
                                     []
@@ -91,7 +90,7 @@ view model =
                                             else
                                                 " "
                                            )
-                                , button [ onClick <| ChangeQuanity product.id (String.fromInt (product.quantity + 1)) ] [ text "Add" ]
+                                , button [ onClick <| ChangeQuantity product.id (String.fromInt (product.quantity + 1)) ] [ text "Add" ]
                                 ]
                         )
                         products
