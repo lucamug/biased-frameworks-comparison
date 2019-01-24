@@ -1,0 +1,24 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "quantity": 1,
+            "title": "Compass"
+        },
+        {
+            "id": 2,
+            "quantity": 0,
+            "title": "Jacket"
+        },
+        {
+            "id": 3,
+            "quantity": 5,
+            "title": "Hiking Socks"
+        },
+        {
+            "id": 4,
+            "quantity": 2,
+            "title": "Suntan Lotion"
+        }
+    ]
+}

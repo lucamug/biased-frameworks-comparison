@@ -1,0 +1,23 @@
+{
+    "name": "elm-comparison",
+    "version": "1.0.0",
+    "description": "Comparing Fron-end frameworks",
+    "dependencies": {},
+    "devDependencies": {
+        "elm": "^0.19.0-bugfix2",
+        "elm-analyse": "^0.16.1",
+        "elm-format": "^0.8.1",
+        "elm-live": "^3.2.3",
+        "uglify-js": "^3.4.9"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "cmd/start"
+    },
+    "author": "",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/username/repository.git"
+    }
+}
