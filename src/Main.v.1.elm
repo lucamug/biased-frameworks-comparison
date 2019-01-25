@@ -73,7 +73,12 @@ view products =
                                     else
                                         " "
                                    )
-                        , button [ onClick <| ChangeQuantity product.id (String.fromInt (product.quantity + 1)) ] [ text "Add" ]
+                        , button
+                            [ onClick <|
+                                ChangeQuantity product.id
+                                    (String.fromInt (product.quantity + 1))
+                            ]
+                            [ text "Add" ]
                         ]
                 )
                 products

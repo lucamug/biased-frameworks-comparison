@@ -5163,7 +5163,6 @@ var elm$html$Html$Attributes$stringProperty = F2(
 			key,
 			elm$json$Json$Encode$string(string));
 	});
-var elm$html$Html$Attributes$type_ = elm$html$Html$Attributes$stringProperty('type');
 var elm$html$Html$Attributes$value = elm$html$Html$Attributes$stringProperty('value');
 var elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 0, a: a};
@@ -5237,7 +5236,6 @@ var author$project$Main$view = function (model) {
 											elm$html$Html$input,
 											_List_fromArray(
 												[
-													elm$html$Html$Attributes$type_('tel'),
 													elm$html$Html$Events$onInput(
 													author$project$Main$ChangeQuantity(product.L)),
 													elm$html$Html$Attributes$value(
