@@ -2659,7 +2659,7 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		o: func(record.o),
+		p: func(record.p),
 		T: record.T,
 		Q: record.Q
 	}
@@ -2929,7 +2929,7 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.o;
+		var message = !tag ? value : tag < 3 ? value.a : value.p;
 		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.T;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
@@ -4491,7 +4491,7 @@ function _Http_track(router, xhr, tracker)
 var author$project$Main$NotRequested = {$: 0};
 var author$project$Main$Product = F3(
 	function (id, quantity, name) {
-		return {L: id, ad: name, q: quantity};
+		return {L: id, ad: name, m: quantity};
 	});
 var elm$core$Basics$apL = F2(
 	function (f, x) {
@@ -4989,6 +4989,12 @@ var author$project$Main$Error = function (a) {
 var author$project$Main$Success = function (a) {
 	return {$: 3, a: a};
 };
+var elm$core$Basics$negate = function (n) {
+	return -n;
+};
+var elm$core$Basics$abs = function (n) {
+	return (n < 0) ? (-n) : n;
+};
 var elm$core$List$foldrHelper = F4(
 	function (fn, acc, ctr, ls) {
 		if (!ls.b) {
@@ -5095,13 +5101,17 @@ var author$project$Main$update = F2(
 						if (_Utils_eq(product.L, productId)) {
 							var newQuantityInt = A2(
 								elm$core$Maybe$withDefault,
-								product.q,
+								product.m,
 								elm$core$String$toInt(newQuantity));
-							return ((newQuantity === '') || (newQuantityInt < 0)) ? _Utils_update(
+							return (newQuantity === '') ? _Utils_update(
 								product,
-								{q: 0}) : _Utils_update(
+								{m: 0}) : ((newQuantityInt < 0) ? _Utils_update(
 								product,
-								{q: newQuantityInt});
+								{
+									m: elm$core$Basics$abs(newQuantityInt)
+								}) : _Utils_update(
+								product,
+								{m: newQuantityInt}));
 						} else {
 							return product;
 						}
@@ -5124,7 +5134,7 @@ var author$project$Main$totalProducts = function (products) {
 		elm$core$List$foldl,
 		F2(
 			function (product, acc) {
-				return acc + product.q;
+				return acc + product.m;
 			}),
 		0,
 		products);
@@ -5239,11 +5249,11 @@ var author$project$Main$view = function (model) {
 													elm$html$Html$Events$onInput(
 													author$project$Main$ChangeQuantity(product.L)),
 													elm$html$Html$Attributes$value(
-													elm$core$String$fromInt(product.q))
+													elm$core$String$fromInt(product.m))
 												]),
 											_List_Nil),
 											elm$html$Html$text(
-											' ' + (product.ad + ((!product.q) ? ' - OUT OF STOCK ' : ' '))),
+											' ' + (product.ad + ((!product.m) ? ' - OUT OF STOCK ' : ' '))),
 											A2(
 											elm$html$Html$button,
 											_List_fromArray(
@@ -5252,7 +5262,7 @@ var author$project$Main$view = function (model) {
 													A2(
 														author$project$Main$ChangeQuantity,
 														product.L,
-														elm$core$String$fromInt(product.q + 1)))
+														elm$core$String$fromInt(product.m + 1)))
 												]),
 											_List_fromArray(
 												[

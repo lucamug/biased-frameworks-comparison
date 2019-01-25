@@ -47,8 +47,11 @@ update msg model =
                                             newQuantityInt =
                                                 Maybe.withDefault product.quantity <| String.toInt newQuantity
                                         in
-                                        if newQuantity == "" || newQuantityInt < 0 then
+                                        if newQuantity == "" then
                                             { product | quantity = 0 }
+
+                                        else if newQuantityInt < 0 then
+                                            { product | quantity = abs newQuantityInt }
 
                                         else
                                             { product | quantity = newQuantityInt }
