@@ -27,7 +27,7 @@
                 }, 0)
             }
         },
-        created() {
+        created: function () {
             fetch('json/74l63.json')
                 .then(response => response.json())
                 .then(json => {
