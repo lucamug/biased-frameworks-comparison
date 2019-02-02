@@ -6,6 +6,7 @@ import Html.Attributes exposing (type_, value)
 import Html.Events exposing (onClick, onInput)
 import Http exposing (Error(..), expectJson, get)
 import Json.Decode exposing (field, int, list, map3, string)
+import Json.Encode as Encode exposing (encode)
 
 
 type alias Product =
@@ -52,41 +53,29 @@ totalProducts products =
 
 
 view products =
-    div []
-        [ ul [] <|
-            List.map
-                (\product ->
-                    li []
-                        [ input
-                            [ type_ "number"
-                            , onInput <| ChangeQuantity product.id
-                            , value <| String.fromInt product.quantity
-                            ]
-                            []
-                        , text <|
-                            " "
-                                ++ product.name
-                                ++ (if product.quantity == 0 then
-                                        " - OUT OF STOCK "
-
-                                    else
-                                        " "
-                                   )
-                        , button
-                            [ onClick <|
-                                ChangeQuantity product.id
-                                    (String.fromInt (product.quantity + 1))
-                            ]
-                            [ text "Add" ]
+    div [] <|
+        List.map
+            (\product ->
+                div []
+                    [ input
+                        [ type_ "number"
+                        , onInput <| ChangeQuantity product.id
+                        , value <| String.fromInt product.quantity
                         ]
-                )
-                products
-        , h2 []
-            [ text <|
-                "Total Inventory: "
-                    ++ (String.fromInt <| totalProducts products)
-            ]
-        ]
+                        []
+                    , button
+                        [ onClick <|
+                            ChangeQuantity product.id
+                                (String.fromInt (product.quantity + 1))
+                        ]
+                        [ text "Add 1" ]
+                    , text <| " " ++ product.name
+                    ]
+            )
+            products
+            ++ [ p [] [ text <| "Total Inventory: " ++ (String.fromInt <| totalProducts products) ]
+               , p [] [ text <| "Quantities: " ++ encode 0 (Encode.list Encode.int (List.map .quantity products)) ]
+               ]
 
 
 productsDecoder =

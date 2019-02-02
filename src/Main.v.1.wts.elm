@@ -81,11 +81,7 @@ view products =
                         ]
                 )
                 products
-        , h2 []
-            [ text <|
-                "Total Inventory: "
-                    ++ (String.fromInt <| totalProducts products)
-            ]
+        , h2 [] [ text <| "Total Inventory: " ++ (String.fromInt <| totalProducts products) ]
         ]
 
 

@@ -1,4 +1,5 @@
-module Main exposing (main)
+module ElmjutsuDumMyM0DuL3 exposing (..)
+-- exposing (main)
 
 import Browser exposing (element)
 import Html exposing (..)
@@ -81,11 +82,7 @@ view products =
                         ]
                 )
                 products
-        , h2 []
-            [ text <|
-                "Total Inventory: "
-                    ++ (String.fromInt <| totalProducts products)
-            ]
+        , h2 [] [ text <| "Total Inventory: " ++ (String.fromInt <| totalProducts products) ]
         ]
 
 
