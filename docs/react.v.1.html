@@ -1,0 +1,153 @@
+<div id="app"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
+<script>
+    var _extends = Object.assign || function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+            var source = arguments[i];
+            for (var key in source) {
+                if (Object.prototype.hasOwnProperty.call(source, key)) {
+                    target[key] = source[key];
+                }
+            }
+        }
+        return target;
+    };
+    var _createClass = function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+        return call && (typeof call === "object" || typeof call === "function") ? call : self;
+    }
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
+
+    var Test = function (_React$Component) {
+        _inherits(Test, _React$Component);
+
+        function Test(props) {
+            _classCallCheck(this, Test);
+            var _this = _possibleConstructorReturn(this, (Test.__proto__ || Object.getPrototypeOf(Test)).call(this,
+                props));
+            _this.
+
+            onChange = function (id) {
+                return function (e) {
+                    _this.changeQuantity(id, e.target.value);
+                };
+            };
+            _this.
+
+            changeQuantity = function (id, value) {
+                var newProducts = this.state.products.map(function (product) {
+                    if (id !== product.id) return product;
+                    return _extends({}, product, {
+                        quantity: value
+                    });
+                });
+                this.setState({
+                    products: newProducts
+                });
+            };
+            _this.state = {
+                products: []
+            };
+            return _this;
+        }
+        _createClass(Test, [{
+            key: "componentDidMount",
+            value: function componentDidMount()
+
+            {
+                var _this2 = this;
+                fetch("https://api.myjson.com/bins/74l63").
+                then(function (response) {
+                    return response.json();
+                }).
+                then(function (json) {
+                    return _this2.setState({
+                        products: json.products
+                    });
+                });
+            }
+        }, {
+            key: "render",
+            value: function render()
+
+            {
+                var _this3 = this;
+                var totalProducts = this.state.products.reduce(function (sum, product) {
+                    return sum + product.quantity;
+                }, 0);
+
+                return (
+                    React.createElement("div", null,
+                        React.createElement("ul", null,
+                            this.state.products.map(function (product, index) {
+                                return (
+                                    React.createElement("li", {
+                                            key: index
+                                        },
+                                        React.createElement("input", {
+                                            type: "number",
+                                            value: product.quantity,
+                                            onChange: _this3.onChange(product.id)
+                                        }),
+
+                                        "  ",
+                                        React.createElement("button", {
+                                            onClick: function onClick() {
+                                                _this3.changeQuantity(product.id, product.quantity + 1);
+                                            }
+                                        }, "Add 1"),
+
+                                        " " + product.name,
+                                        React.createElement("span", null, product.quantity === 0 ? " - OUT OF STOCK" : "")));
+
+                            }), " "),
+
+                        React.createElement("p", null, "Total Inventory: ", totalProducts)));
+
+            }
+        }]);
+        return Test;
+    }(React.Component);
+
+    ReactDOM.render(React.createElement(Test, null), document.getElementById("app"));
+</script>
