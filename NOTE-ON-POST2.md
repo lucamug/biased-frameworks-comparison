@@ -65,13 +65,16 @@ The button, compared to React and Elm, it changes the quantity in place without 
 <button @click="product.quantity += 1">
 ```
 
-# Verbosity
+# Boilerplate
 
-There are commands in React that are added by default, like for example:
+Constructors sometime, depending on the style of writing the code, require boilerplates on each component:
 ```
-super(props);
+constructor() {
+    super(props);
+    this.handleClick1 = this.handleClick1.bind(this)
+    this.handleClick2 = this.handleClick2.bind(this)
+}
 ```
-I wonder if these properties could be added by default instead of manually adding this line everywhere.
 
 # More way to do one thing
 
@@ -87,11 +90,23 @@ In this sense Vue is also simpler as it rely less on these concepts.
 
 Looking at the documentation I was overwhelmed by the abundance of features, for example:
 
-React.memo, React.PureComponent, React.Component, React.cloneElement(), React.createFactory(), React.Children, React.Fragment, React.Suspense, componentDidMount(), static getDerivedStateFromProps(), getSnapshotBeforeUpdate(), componentDidUpdate(), componentWillUnmount(), componentDidCatch(), shouldComponentUpdate(), Hooks, Concurrent Mode, Legacy Lifecycle Methods,etc.
+React.memo, React.PureComponent, React.Component, React.cloneElement(), React.createFactory(), React.Children, React.Fragment, React.Suspense, componentDidMount(), getDerivedStateFromProps(), getSnapshotBeforeUpdate(), componentDidUpdate(), componentWillUnmount(), componentDidCatch(), shouldComponentUpdate(), Hooks, Concurrent Mode, Legacy Lifecycle Methods,etc.
 
 And also by the list of "better not to do this way":
 
 "The render() function should be pure", "[...] you should call super(props) [...] otherwise [...] can lead to bugs", "You should not call setState() in the constructor()", "Avoid introducing any side-effects or subscriptions in the constructor.", "Avoid copying props into state, [...] it creates bugs", "You may call setState() immediately in componentDidMount(). It will trigger an extra rendering", "You may call setState() immediately in componentDidUpdate() but note that it must be wrapped in a condition like in the example above, or you’ll cause an infinite loop", "You should not call setState() in componentWillUnmount() because the component will never be re-rendered"
 
+# Typos
+
+Similar to Vue, also React fail silently if we introduce certain typos, for example:
+```
+value={product.quanity}
+```
+
 
 http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+
+https://codesandbox.io/s/00w95xmnq0
+https://codesandbox.io/s/oox55w58x9
+
+https://alligator.io/react/new-way-to-handle-events/

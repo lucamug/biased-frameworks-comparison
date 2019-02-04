@@ -29,12 +29,12 @@ update msg products =
         GotProducts (Err _) ->
             ( products, Cmd.none )
 
-        ChangeQuantity productId newQuantity ->
+        ChangeQuantity id newQuantity ->
             let
                 newProducts =
                     List.map
                         (\product ->
-                            if product.id == productId then
+                            if product.id == id then
                                 { product
                                     | quantity =
                                         Maybe.withDefault product.quantity <| String.toInt newQuantity
