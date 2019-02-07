@@ -2,13 +2,13 @@ Things that can go wrong ..., React edition.
 
 This is the second post of the "Things that can go wrong ...".
 
-If you haven't read the first post that is about Vue and Elm, you can find this at:
+If you haven't read the first post that is about Vue and Elm, you can find it at:
 
-In this second installment I wrote the same example in React.
+In this second installment I wrote the same example using React.
 
 React is closer to Elm, compared to Vue, because both of them
 
-* Generate html using functions (JSX)
+* Generate html using functions (usually through JSX)
 * Use one-way data binding
 
 While Vue:
@@ -38,11 +38,14 @@ To obtain a similar behavior in Elm example we would need to explicitly add a ch
 
 # Consistency
 
+There are many way of handling events in React (see the section "More way to do one thing" below), I tried to be as consistant as possible in my example:
+
 In React
 
 ```
-onChange={this.onChange(product.id)}
-onClick={() => {this.changeQuantity(product.id, product.quantity + 1);}}
+onChange = { e => { this.changeQuantity( product.id, null, e ); } }
+onClick  = { e => { this.changeQuantity( product.id, product.quantity + 1, e ); } }
+
 ```
 
 In Elm
@@ -52,14 +55,20 @@ onInput <| ChangeQuantity product.id
 onClick <| ChangeQuantity product.id (String.fromInt (product.quantity + 1))
 ```
 
-In Elm both the input field and the button send out the same message (`ChangeQuantity`) while in React they call two different functions (`onChange` and `changeQuantity`) and the syntax is different.
+In React I need to use a trick to recycle the same function. I need to either pass the `null` or the new quantity as second parameter and the event as third. So in the function I need to:
 
-I wonder if a similar approach would be similar in React, I could not figure it out.
+```
+const newQuantity = v || e.target.value;
+```
+
+In Elm this trick is not required.
 
 In Vue the input field is magically two-way bound:
+
 ```
 <input type="number" v-model.number="product.quantity">
 ```
+
 The button, compared to React and Elm, it changes the quantity in place without calling any function. This part of the two-way binding. In Elm this is impossible, because the View is not allowed to change the state of the system but can only generate messages.
 ```
 <button @click="product.quantity += 1">
